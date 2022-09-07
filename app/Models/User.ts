@@ -12,7 +12,7 @@ export default class User extends BaseModel {
 
   @column({})
   public email: string
-
+  
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -27,6 +27,10 @@ export default class User extends BaseModel {
 
   @manyToMany(() => Skill, {
     pivotTable: 'skill_users',
+    localKey: 'id',
+    pivotForeignKey: 'user_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'skill_id',
     pivotColumns: ['proficiency'],
   })
   public skills: ManyToMany<typeof Skill>

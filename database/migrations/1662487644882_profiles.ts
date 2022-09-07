@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.string('number')
       table.string('endereco')
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE').onUpdate('CASCADE')
-
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

@@ -1,6 +1,7 @@
 import User from './User'
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasManyThrough, hasManyThrough} from '@ioc:Adonis/Lucid/Orm'
+import Post from './Post'
 
 export default class Profile extends BaseModel {
   @column({ isPrimary: true })
@@ -17,7 +18,7 @@ export default class Profile extends BaseModel {
 
   @column()
   public userId: number
- 
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -26,5 +27,13 @@ export default class Profile extends BaseModel {
 
   @belongsTo(()=>User)
   public user: BelongsTo<typeof User>
+ 
+  /*@hasManyThrough([
+    ()=>Post,
+    ()=>User
+  ],{ 
+    throughForeignKey:'profileId'
+  })
+  public posts: HasManyThrough<typeof Post>*/
 }
  

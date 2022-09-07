@@ -25,7 +25,8 @@ export default class ProfilesController {
 
  public async show({params}: HttpContextContract) {
  try {
-   const post = await Profile.findOrFail(params.id);
+   const post = await Profile.find(params.id);
+   //post?.load('posts')
    return post;
  } catch (error) {
    console.log("Erro Show:",error)

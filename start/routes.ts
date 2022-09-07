@@ -17,16 +17,19 @@
 | import './routes/customer'
 |
 */
-
 import Route from '@ioc:Adonis/Core/Route'
-//import './include/posts'
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-/*Route.get('users','UsersController.index')
-Route.post('users','UsersController.store')*/
-Route.resource('posts','PostsController').apiOnly()
-Route.resource('users','UsersController').apiOnly()
-Route.resource('profiles','ProfilesController').apiOnly()
-Route.resource('skills','SkillsController').apiOnly()
+import './include/posts/post'
+import './include/profiles/profile'
+import './include/users/user'
+
+Route.group(() => {
+  Route.get('/chamando', async () => {
+    return 204
+  })
+}).prefix('/api')
 Route.resource('skillsusers','SkillUsersController').apiOnly()
+
+
+Route.get('/', (ctx) => {
+  ctx.response.send('hello world')
+}).middleware('teste')

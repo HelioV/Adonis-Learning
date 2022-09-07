@@ -29,6 +29,8 @@ export default class UsersController {
   public async show({params}: HttpContextContract) {
   try {
     const user =await User.find(params.id);
+    await user?.load('profile')
+    await user?.load('skills')
     return user;
   } catch (error) {
     console.log("Erro Show:",error)

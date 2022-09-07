@@ -12,7 +12,7 @@ export default class Skill extends BaseModel {
   @manyToMany(() => User, {
     pivotTable: 'skill_users',
     pivotColumns: ['proficiency'],
-  })
+  }) 
   public users: ManyToMany<typeof User>
 
   @column.dateTime({ autoCreate: true })
