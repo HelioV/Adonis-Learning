@@ -5,7 +5,10 @@ export default class UsersController {
   public async index({}: HttpContextContract) {
      try {
        
-      const users = await User.query().preload('profile');
+      const users = await User.query()
+      .preload('skills')
+      .preload('posts')
+      .preload('profile');
       return users;
 
      } catch (error) {
@@ -25,7 +28,7 @@ export default class UsersController {
 
   public async show({params}: HttpContextContract) {
   try {
-    const user =await User.findOrFail(params.id);
+    const user =await User.find(params.id);
     return user;
   } catch (error) {
     console.log("Erro Show:",error)

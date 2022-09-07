@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-
+//import './include/posts'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
@@ -28,3 +28,5 @@ Route.post('users','UsersController.store')*/
 Route.resource('posts','PostsController').apiOnly()
 Route.resource('users','UsersController').apiOnly()
 Route.resource('profiles','ProfilesController').apiOnly()
+Route.resource('skills','SkillsController').apiOnly()
+Route.resource('skillsusers','SkillUsersController').apiOnly()

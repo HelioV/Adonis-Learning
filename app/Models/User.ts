@@ -1,16 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column,HasMany, hasMany, HasOne, hasOne, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Post from './Post'
 import Profile from './Profile'
-
+import Skill from './Skill'
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({serializeAs: null})
   public password: string
 
-  @column()
+  @column({})
   public email: string
 
   @column.dateTime({ autoCreate: true })
@@ -24,4 +24,10 @@ export default class User extends BaseModel {
 
   @hasOne(()=>Profile)
   public profile: HasOne<typeof Profile>
+
+  @manyToMany(() => Skill, {
+    pivotTable: 'skill_users',
+    pivotColumns: ['proficiency'],
+  })
+  public skills: ManyToMany<typeof Skill>
 }
