@@ -1,3 +1,4 @@
+import Application  from '@ioc:Adonis/Core/Application';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
@@ -55,5 +56,22 @@ export default class UsersController {
     } catch (error) {
       console.log("Erro Eliminação:",error)
     }
+  }
+
+  public async uploadFile({request}: HttpContextContract) {
+    const user = await User.find(request.input('id'))
+    if(user)
+    {
+      const coverImage = request.file('photo')
+      if (coverImage) {
+        await coverImage.moveToDisk('./user')
+        user.photo=coverImage.filePath
+        user.save()
+        return "Arquivo alterado com sucesso"
+      }
+      return "Nenhum arquivo foi carregado"
+    }
+    else return "Usuario nao achado"
+    
   }
 }
