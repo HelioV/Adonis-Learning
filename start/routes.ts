@@ -26,10 +26,24 @@ Route.group(() => {
   Route.get('/chamando', async () => {
     return 204
   })
+
+  Route.resource('skillsusers','SkillUsersController').apiOnly()
 }).prefix('/api')
-Route.resource('skillsusers','SkillUsersController').apiOnly()
+.middleware('auth')
 
 
 Route.get('/', (ctx) => {
   ctx.response.send('hello world')
-}).middleware('teste')
+}).middleware('auth')
+
+Route.post('login', async ({ auth, request, response }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+  try {
+    const token = await auth.use('api').attempt(email, password)
+    return token
+  } catch {
+    return response.unauthorized('Invalid credentials')
+  }
+})
+ 
